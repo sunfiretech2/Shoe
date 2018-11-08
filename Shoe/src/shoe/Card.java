@@ -11,4 +11,14 @@ package shoe;
  */
 public class Card {
     
+    public enum Suit {
+        c, // CLUB
+        s, // SPADE
+        d, // DIAMOND
+        h  // HEART
+    };
+
+    Suit suit;
+    int rank;
+    
 }
