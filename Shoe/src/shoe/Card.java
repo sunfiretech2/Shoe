@@ -12,13 +12,27 @@ package shoe;
 public class Card {
     
     public enum Suit {
-        c, // CLUB
-        s, // SPADE
-        d, // DIAMOND
-        h  // HEART
+        C, // CLUB
+        S, // SPADE
+        D, // DIAMOND
+        H  // HEART
     };
 
-    Suit suit;
-    int rank;
+    private Suit suit;
+    private int rank;
+    
+   
+    public Card(Suit suit, int rank){
+        this.suit = suit;
+        this.rank = rank;
+    }
+    
+    public Suit getSuit(){
+        return suit;
+    }
+    
+    public int getRank(){
+        return rank;
+    }
     
 }
