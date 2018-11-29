@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package shoe;
 
 /**
@@ -11,11 +6,20 @@ package shoe;
  */
 public class ShoeDriver {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here        
+        
+        Card cards = new Card(Card.Suit.S, 14);
+        
+        System.out.println(cards.getRank()+""+cards.getSuit());
+        System.out.println(cards.toString());
+        
+        Deck decks = new Deck();
+        decks.init();
+        
+        System.out.println(decks.toString());
+        //System.out.println(decks.);
+        System.out.println(decks.counter());
+        
     }
     
 }
