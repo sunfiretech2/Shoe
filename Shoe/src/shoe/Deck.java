@@ -2,6 +2,7 @@ package shoe;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Claude
@@ -14,7 +15,7 @@ public class Deck {
     public Deck(){
         myCards = new ArrayList<>();        
     }
-    
+    //method to initialize deck of cards
     public void init(){
         
         //int indexes = 0;
@@ -28,6 +29,14 @@ public class Deck {
     public int counter(){
         return myCards.size();
     }
+    public void shuffler(){
+        Collections.shuffle(myCards);
+    }
+    
+    public Card getMyCard(int i){
+        return myCards.get(i);
+    }
+    
     @Override
     public String toString(){
         return String.format("%s", myCards.toString());

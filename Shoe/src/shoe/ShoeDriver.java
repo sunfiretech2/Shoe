@@ -17,6 +17,11 @@ public class ShoeDriver {
         decks.init();
         
         System.out.println(decks.toString());
+        System.out.println(decks.getMyCard(3));
+        decks.shuffle();
+        System.out.println(decks.toString());
+        System.out.println(decks.getMyCard(3));
+        
         //System.out.println(decks.);
         System.out.println(decks.counter());
         
