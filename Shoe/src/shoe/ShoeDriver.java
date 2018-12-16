@@ -1,43 +1,67 @@
 package shoe;
 
+import java.util.Scanner;
+
 /**
- *
+ * @author Claude
  * @author Ali
  */
 public class ShoeDriver {
 
     public static void main(String[] args) {
-        /*
-        Card cards = new Card(Card.Suit.S, 14);
         
-        System.out.println(cards.getRank()+""+cards.getSuit());
-        System.out.println(cards.toString());
+        //creating scanner input
+        Scanner input = new Scanner(System.in);
         
-        Deck decks = new Deck();
-        decks.init();
-        
-        System.out.println(decks.toString());
-        System.out.println(decks.getMyCard(3));
-        decks.shuffler();
-        System.out.println(decks.toString());
-        System.out.println(decks.getMyCard(3));
-        
-        //System.out.println(decks.);
-        System.out.println(decks.counter());
-        */
-        
+        //creating shoe for game
         Shoe shoe = new Shoe();
         shoe.shoeInit(2);
-       
         
-       
-        //shoe.shuffleShoeCard();
-        //System.out.println(shoe.myShoeCard);
-        //System.out.println(shoe.myShoeCard.size());
+        //creating player and dealer 
+        Player playerOne = new Player("Claude", 5000);
+        Dealer dealer = new Dealer("Eric");
         
-        System.out.println(shoe.drawCard());
-        System.out.println(shoe.toString());
+        
+        //first Card        
+        playerOne.setGamblerHand(shoe.drawCard());
+        dealer.setGamblerHand(shoe.drawCard());
+        //second Card
+        playerOne.setGamblerHand(shoe.drawCard());
+        dealer.setGamblerHand(shoe.drawCard());
+        
+        
+        
+        //printing player cards
+        System.out.println(playerOne.toString());
+        
+        //printing dealer hole card
+        dealer.getHoleCard();
+        
+        System.out.println("Hit (H) / Stand (S)");
+        String playerSelection = input.next().toUpperCase();
+        
+        
+        
+        while(true){
+        if (playerSelection.equals("H")) {
+            playerOne.setGamblerHand(shoe.drawCard());
+            
+        }
+        else if(playerSelection.equals("S")){
+            System.out.println(playerOne.getTotal());
+            //System.out.println(evalGame(drivePlayer, driveDealer));
+            break;
+        }
+        else{
+            System.out.println("Invalid input");
+        }
+         System.out.println("player " + playerOne.toString());
+         
+         System.out.println("Hit (H) / Stand (S)");
+         playerSelection = input.next().toUpperCase();
+        
         
     }
-    
+    }
 }
+       

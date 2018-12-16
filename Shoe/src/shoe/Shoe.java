@@ -54,6 +54,10 @@ public class Shoe {
         return myShoeCard.remove(0);
     }
     
+    public Card seeDrawCard(){
+        return myShoeCard.get(0);
+    }
+    
     public int shoeCardSize(){
         return myShoeCard.size();
     }
@@ -62,6 +66,9 @@ public class Shoe {
          return finalPosition;
     }
     
+    public boolean isCutCardBeenPulled(){
+        return (myShoeCard.size()<52);
+    }
     public void shoeInit(int numberOfDecks){
         init(numberOfDecks);
         shuffleShoeCard();
