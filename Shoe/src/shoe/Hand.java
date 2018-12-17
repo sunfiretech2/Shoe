@@ -16,20 +16,38 @@ public class Hand {
         cardValue.add(dealt);
     }
     
-    public int getTotal(){
-        int total=0;
-        while(cardValue.size() > 0){
-            for(int i =0; i<cardValue.size(); i++){
-                int temp = cardValue.get(i).getRank();
-                if(temp > 9 && temp < 14)
-                    total+=10;
-                else if(temp==14)
-                    total+=11;
-                else
-                    total+= temp;
+    public boolean hasBlackjack() {
+        return (cardValue.size() == 2 && getTotal() == 21);
+    }
+    
+    public int getTotal() {
+        int total = 0;
+        boolean hasAce = false;
+
+        for (int i = 0; i < cardValue.size(); ++i) {
+            int rank = cardValue.get(i).getRank();
+            
+            if (rank > 9 && rank < 14) {
+                total += 10;
+            } else if (rank == 14) {
+                if (hasAce) {
+                    total += 1;
+                } else {
+                    total += 11;
+                }
+                hasAce = true;
+            } else {
+                total += rank;
             }
-            break;            
         }
+        
+        // If there is an ace in the hand and the total is over 21
+        // then treat the ace as a one instead of an eleven by subtracting
+        // ten from the total.
+        if (hasAce && total > 21) {
+            total -= 10;
+        }
+
         return total;
     }
     
@@ -39,8 +57,6 @@ public class Hand {
             System.out.println(cardValue.get(i));
         }        
     }
-    
-    
     
     @Override
     public String toString(){
