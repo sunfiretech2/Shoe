@@ -29,8 +29,6 @@ public class Hand {
         total = 0;
         isSoft = false;
         isBlackjack = false;
-        
-        boolean hasAce = false;
 
         for (int i = 0; i < cardValue.size(); ++i) {
             int rank = cardValue.get(i).getRank();
@@ -38,26 +36,26 @@ public class Hand {
             if (rank > 9 && rank < 14) {
                 total += 10;
             } else if (rank == 14) {
-                if (hasAce) {
+                if (isSoft) {
                     total += 1;
                 } else {
                     total += 11;
                 }
-                hasAce = true;
+                isSoft = true;
             } else {
                 total += rank;
             }
         }
         
-        if (hasAce) {
+        if (isSoft) {
             if (total > 21) {
                 // If there is an ace in the hand and the total is over 21
                 // then treat the ace as a one instead of an eleven by subtracting
                 // ten from the total.
                 total -= 10;
-            } else {
-                isSoft = true;
                 
+                isSoft = false;
+            } else {
                 if ((total == 21) && (cardValue.size() == 2)) {
                     isBlackjack = true;
                 }
