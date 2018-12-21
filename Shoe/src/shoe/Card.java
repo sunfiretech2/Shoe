@@ -10,6 +10,7 @@ package shoe;
  */
 public class Card {
     
+//There are 4 suits in a deck of cards.  Using Enum  to create the suits.    
     public enum Suit {
         C, // CLUB
         S, // SPADE
@@ -17,12 +18,15 @@ public class Card {
         H  // HEART
     };
 
+//instance variables of the card class
     private Suit suit;
     private int rank;
-    
+
+//This constructor may not be needed.    
     public Card(){
         
     }
+//This constructor is used.  construct suit using card dot suit.    
     public Card(Suit suit, int rank){
         this.suit = suit;
         this.rank = rank;        

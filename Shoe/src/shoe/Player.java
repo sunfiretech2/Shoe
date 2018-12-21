@@ -6,7 +6,7 @@ package shoe;
  * @author Wife
  */
 
-public class Player extends Gamblers{
+public class Player extends GameParticipant{
     
     //player members
     private String accountNumber;
@@ -18,15 +18,10 @@ public class Player extends Gamblers{
         numberOfPlayers++;
     }
     
-   /* 
     @Override
-    public String getName(){
-        return super.getName();
+    public String toString(){
+        return String.format("Name:\tWager:\tCards%n%s\t%d\t%s", super.getName(),super.getBalance(),super.getHand());
     }
     
-    @Override
-    public int getBalance(){
-        return super.getBalance();
-    }
-*/
+
 }

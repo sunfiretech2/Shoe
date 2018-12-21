@@ -5,26 +5,26 @@ package shoe;
  * @author Claude
  * @author Ali
  */
-public class Gamblers {
+public class GameParticipant {
 
 private String name;
-private Hand hand;
+protected Hand hand;
 int balance = 100000;
 
 //Constructor that will only take nae
-public Gamblers(String name){
+public GameParticipant(String name){
     this.name = name;
     hand = new Hand();    
 }
 //constructor that takes name and balance
-public Gamblers(String name, int balance){
+public GameParticipant(String name, int balance){
     this.name = name;
     this.balance = balance;
     hand = new Hand();
 }
 
-public void setGamblerHand(Card dealtCard){
-    hand.setHand(dealtCard);
+public void drawCard(Card dealtCard){
+    hand.drawCard(dealtCard);
 }
 
 public String getHand(){
@@ -34,9 +34,7 @@ public int getTotal(){
     return hand.getTotal();
 }
 
-public void getHoleCard(){
-    hand.showCard(1);
-}
+
 
 public String getName(){
     return name;

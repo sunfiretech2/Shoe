@@ -16,7 +16,9 @@ public class Hand {
     private boolean isBlackjack = false;
     private boolean isSoft = false;
     
-    public void setHand(Card dealt){
+    //create isBusted in here
+    
+    public void drawCard(Card dealt){
         cardValue.add(dealt);
         calcTotal();
     }
@@ -64,10 +66,8 @@ public class Hand {
     }
     
     //added this to display cards
-    public void showCard(int numCardsToShow){
-        for(int i = 0; i< numCardsToShow; i++){
-            System.out.println(cardValue.get(i));
-        }        
+    public Card getHoleCard(){        
+            return cardValue.get(0); 
     }
     
     @Override
