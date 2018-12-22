@@ -25,7 +25,7 @@ public class Hand {
     
     public int getTotal() { return total; }
     public boolean isBlackjack() { return isBlackjack; }
-    public boolean isSoft() { return isSoft; }
+    public boolean isSoft() { return isSoft; } 
     
     private void calcTotal() {
         total = 0;
@@ -70,8 +70,13 @@ public class Hand {
             return cardValue.get(0); 
     }
     
+    public boolean isBusted(){
+        return total>21;        
+    }
+    
     @Override
     public String toString(){
         return String.format("%s", cardValue);
     }
+    
 }

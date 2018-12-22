@@ -62,6 +62,13 @@ public class ShoeDriver {
          System.out.println(playerOne.toString());
          dealer.showHoleCard();
          System.out.println();
+         if(playerOne.hand.isBlackjack()){
+             System.out.println(playerOne.getName() + " has BlackJack");
+             break;
+         }
+         if(playerOne.hand.isBusted()){
+             break;
+         }
          
          System.out.println("Hit (H) / Stand (S)");
          playerSelection = input.next().toUpperCase();       
@@ -69,12 +76,18 @@ public class ShoeDriver {
         System.out.println(playerOne.toString());
         System.out.println(dealer.toString());
         
-        dealer.dealerAlgo(shoe);
+        if(!playerOne.hand.isBusted()){
+            dealer.dealerAlgo(shoe);  
+            System.out.println(playerOne.toString());
+            System.out.println(dealer.toString());        
+         }
         
-        System.out.println(playerOne.toString());
-        System.out.println(dealer.toString());
         
         System.out.println(game.evalGame(playerOne, dealer));
+        
+        System.out.println(playerOne.getTotal() + " " + dealer.hand.getTotal());
+        System.out.println(playerOne.hand.isBusted() +" " + dealer.hand.isBusted());
+        
         
         
         //do the bust dealer & player
