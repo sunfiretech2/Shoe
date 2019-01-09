@@ -15,7 +15,7 @@ public class Dealer extends GameParticipant {
     }
     
     public void showHoleCard(){
-    System.out.print("Dealer\t\t["+ hand.getHoleCard()+"]");
+    System.out.print(getName() +"\t\t["+ hand.getHoleCard()+"]");
 }
     
     public void dealerAlgo(Shoe shoe){

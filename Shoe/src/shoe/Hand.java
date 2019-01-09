@@ -9,8 +9,8 @@ import java.util.List;
  * @author Ali
  */
 public class Hand {
-    
-    private List <Card> cardValue = new ArrayList<>();
+    //need to change back
+    protected List <Card> cardValue = new ArrayList<>();
     
     private int total = 0;
     private boolean isBlackjack = false;
