@@ -1,16 +1,17 @@
-/*
-The card class creates the suit and rank
+/**
+ * Implementation of Card.
+ */
 
-*/
 package shoe;
 
 /**
- * @author Claude
- * @author Ali
+ * A class representing a card.
  */
 public class Card {
-    
-//There are 4 suits in a deck of cards.  Using Enum  to create the suits.    
+
+    /** 
+     * The four possible suits of a card.
+     */    
     public enum Suit {
         C, // CLUB
         S, // SPADE
@@ -18,74 +19,111 @@ public class Card {
         H  // HEART
     };
 
-//instance variables of the card class
+    /** 
+     * The suit of the Card.
+     */
     private Suit suit;
-    private int rank;
-
-//This constructor may not be needed.    
-    public Card(){
-        
-    }
-//This constructor is used.  construct suit using card dot suit.    
-    public Card(Suit suit, int rank){
-        this.suit = suit;
-        this.rank = rank;        
-    }
     
-    //getter for suits of card
-    public Suit getSuit(){
+    /** 
+     * The rank of the Card.
+     */
+    private int rank;
+    
+    /**
+     * Card constructor.
+     *
+     * @param     suit  the suit.
+     * @param     rank  the rank.
+     */
+    public Card(Suit suit, int rank) {
+        this.suit = suit;
+        this.rank = rank;
+    }
+
+    /**
+     * Gets the suit.
+     *
+     * @return    the suit.
+     */
+    public Suit getSuit() {
         return suit;
     }
-    //getter for face value of card
-    public int getRank(){
+
+    /**
+     * Gets the rank.
+     *
+     * @return    the rank.
+     */
+    public int getRank() {
         return rank;
     }
-    //this method will convert the suit card to it's equivalent character symbol
-    public char suitSymbol(){
-        char suitSymbol ='?';
-        switch(suit){
-            case C:     suitSymbol = '\u2663';
+
+    /**
+     * Convert the suit to it's equivalent character symbol.
+     *
+     * @return    the suit symbol.
+     */
+    public char suitSymbol() {
+        char suitSymbol = '?';
+        switch (suit) {
+            case C:
+                suitSymbol = '\u2663';
                 break;
-            case D:     suitSymbol = '\u2666';
+            case D:
+                suitSymbol = '\u2666';
                 break;
-            case H:     suitSymbol = '\u2764';
+            case H:
+                suitSymbol = '\u2764';
                 break;
-            case S:     suitSymbol = '\u2660';
+            case S:
+                suitSymbol = '\u2660';
                 break;
             default:
                 break;
         }
         return suitSymbol;
     }
-    
-    //this method will convert the rank variable to an assigned character
-    public char rankSymbol(){
+
+    /**
+     * Convert the rank to it's equivalent character symbol.
+     *
+     * @return    the rank symbol.
+     */
+    public char rankSymbol() {
         char rankSymbol = '?';
-        if(rank>1 && rank<10){
+        if (rank > 1 && rank < 10) {
             rankSymbol = Character.forDigit(rank, 10);
-        }
-        else{
-            switch(rank){
-                case 10:    rankSymbol = 'T';
+        } else {
+            switch (rank) {
+                case 10:
+                    rankSymbol = 'T';
                     break;
-                case 11:    rankSymbol = 'J';
+                case 11:
+                    rankSymbol = 'J';
                     break;
-                case 12:    rankSymbol = 'Q';
+                case 12:
+                    rankSymbol = 'Q';
                     break;
-                case 13:    rankSymbol = 'K';
+                case 13:
+                    rankSymbol = 'K';
                     break;
-                case 14:    rankSymbol = 'A';
+                case 14:
+                    rankSymbol = 'A';
                     break;
                 default:
-                    break;  
+                    break;
             }
         }
         return rankSymbol;
     }
-    
-    //create the to string for card
+
+    /**
+     * Convert the Card to a printable string.
+     *
+     * @return    the string representation of the Card.
+     */
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%c%c", rankSymbol(), suitSymbol());
     }
 }
