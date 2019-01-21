@@ -11,9 +11,10 @@ import java.util.Scanner;
  */
 public class BlackJackGame {
     //Creating a player, dealer, shoe...initialized in constructor
-    protected Player player;
-    protected Dealer dealer;
-    protected Shoe shoe;
+    private Player player;
+    private Dealer dealer;
+    private Shoe shoe;
+    private int gameNumber = 0;
     //creating a scanner object
     Scanner input = new Scanner(System.in);
     
@@ -82,8 +83,13 @@ public class BlackJackGame {
         
     }
     
+    public void shoeCardSize() {
+        System.out.println(shoe.shoeCardSize());
+    }
     
-    public void startGame(){
+    
+    public void playGame(){
+        ++gameNumber;
         gameDealCards();
         gamePrintDealCardsHole();
         
@@ -100,7 +106,10 @@ public class BlackJackGame {
             }
         }
         gamePrintDealCardsFinal();
-        gameEvalWinner();        
+        gameEvalWinner(); 
+        clear();
+        shoeCardSize();
+        System.out.println(gameNumber);
     }
        
     public void gamePrintDealCardsHole(){
@@ -117,6 +126,11 @@ public class BlackJackGame {
         //prints dealer hole card
         System.out.println(dealer.toString());
         System.out.println("\n");
+    }
+    
+    public void clear() {
+        player.clear();
+        dealer.clear();
     }
         
     public Result gameEvalWinner(){

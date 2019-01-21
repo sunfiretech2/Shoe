@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Hand {
     //need to change back
-    protected List <Card> cardValue = new ArrayList<>();
+    private List <Card> cardValue = new ArrayList<>();
     
     private int total = 0;
     private boolean isBlackjack = false;
@@ -72,6 +72,10 @@ public class Hand {
     
     public boolean isBusted(){
         return total>21;        
+    }
+    
+    public void clear() {
+        cardValue.clear();
     }
     
     @Override

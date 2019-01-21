@@ -34,6 +34,10 @@ public int getTotal(){
     return hand.getTotal();
 }
 
+public void clear(){
+    hand.clear();
+}
+
 
 
 public String getName(){
