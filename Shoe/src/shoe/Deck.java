@@ -22,14 +22,14 @@ public class Deck {
      * Card Constructor
      * initializes myCards as ArrayList
      */    
-    public Deck(){
+    public Deck() {
         myCards = new ArrayList<>();        
     }
     
     /**
      *  Initializes the Deck arrayList with Cards 
      */    
-    public void init(){        
+    public void init() {        
         for(Card.Suit c : Card.Suit.values())
             for(int i = 2; i<15; i++){                
                 Card card = new Card(c,i);
@@ -42,14 +42,14 @@ public class Deck {
      * 
      * @return the size
      */
-    public int counter(){
+    public int counter() {
         return myCards.size();
     }
     
     /**
      * Shuffles the card arrayList
      */
-    public void shuffler(){
+    public void shuffler() {
         Collections.shuffle(myCards);
     }
     
@@ -59,7 +59,7 @@ public class Deck {
      * @param i     the index
      * @return      the Card
      */
-    public Card getMyCard(int i){
+    public Card getMyCard(int i) {
         return myCards.get(i);
     }
     
@@ -69,7 +69,7 @@ public class Deck {
      * @return  The String representation of the Deck 
      */
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%s", myCards.toString());
     }    
 }
