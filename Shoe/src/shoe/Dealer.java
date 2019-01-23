@@ -18,10 +18,13 @@ public class Dealer extends GameParticipant {
     System.out.print(getName() +"\t\t["+ hand.getHoleCard()+"]");
 }
     
-    public void dealerAlgo(Shoe shoe){
+    public boolean dealerAlgo(Shoe shoe){
+        boolean dealerHit = false;
         while(getTotal()<17){
             drawCard(shoe.drawCard());
+            dealerHit = true;
         }
+        return dealerHit;
         
             
     }

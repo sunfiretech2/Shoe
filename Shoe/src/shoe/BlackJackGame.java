@@ -3,7 +3,13 @@
 
 package shoe;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Ali
@@ -15,6 +21,9 @@ public class BlackJackGame {
     private Dealer dealer;
     private Shoe shoe;
     private int gameNumber = 0;
+    //private boolean dealerHit;
+    String fileName = "C:\\Users\\Wife\\Desktop\\ClaudeTesting.txt";
+    PrintWriter pw = null;
     //creating a scanner object
     Scanner input = new Scanner(System.in);
 
@@ -25,6 +34,16 @@ public class BlackJackGame {
         shoe = new Shoe();
         //may need  to ask for number of decks here.  for now setting it up as 2
         shoe.shoeInit(2);
+       
+        try {        
+            FileWriter fw = new FileWriter(fileName, true);
+            pw = new PrintWriter(fw, true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(BlackJackGame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(BlackJackGame.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+        
     }
 
     //enum result of hand   
@@ -65,23 +84,25 @@ public class BlackJackGame {
 
         // ALI 01/14/2019
         // Let's talk about this label OUTER.
-        OUTER:
-        while (!player.hand.isBusted()) {
+        boolean playerStand = false;
+        while (!player.hand.isBusted() && !playerStand) {
             System.out.print("Hit (H) / Stand (S) / Double Down (D)\t");
             String playerSelection = input.next().toUpperCase();
             System.out.println("\n");
             switch (playerSelection) {
                 case "H":
                     player.drawCard(shoe.drawCard());
+                    gamePrintDealCardsHole();
                     break;
                 case "S":
                     //System.out.println(player.getTotal());
-                    break OUTER;
+                    playerStand = true;
+                    break;
                 default:
                     System.out.println("Invalid input");
+                    gamePrintDealCardsHole();
                     break;
             }
-            gamePrintDealCardsHole();
         }
     }
     
@@ -92,11 +113,13 @@ public class BlackJackGame {
     
     public void playGame(){
         ++gameNumber;
+        System.out.println("Game number: " + gameNumber);
         gameDealCards();
         gamePrintDealCardsHole();
 
         //verifies if player or dealer has blackjack
         boolean gameFlagBlackJack = gameEvalBlackJack();
+        boolean dealerHit = false;
         //if neither has a blackjack
         if (!gameFlagBlackJack) {
             gameOption();
@@ -104,15 +127,24 @@ public class BlackJackGame {
 
             //if player did not bust
             if (!player.hand.isBusted()) {
-                dealer.dealerAlgo(shoe);
+                dealerHit = dealer.dealerAlgo(shoe);
             }
         }
-        gamePrintDealCardsFinal();
+        if(dealerHit || gameFlagBlackJack){
+            gamePrintDealCardsFinal();
+        }        
         gameEvalWinner(); 
+        gamePrintToFile();
         clear();
-        shoeCardSize();
-        System.out.println(gameNumber);
+        shoeCardSize();        
     }
+    
+    public void gamePrintToFile(){
+        pw.println("Game Number: " + gameNumber);
+        pw.println(player.toString());
+        pw.println(dealer.toString());
+        pw.println();
+    }    
 
     public void gamePrintDealCardsHole() {
         //prints out the players cards
