@@ -7,6 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,22 +26,30 @@ public class BlackJackGame {
     private Shoe shoe;
     private int gameNumber = 0;
     //private boolean dealerHit;
-    String fileName = "C:\\Users\\Wife\\Desktop\\ClaudeTesting.txt";
+    String fileName = "C:\\Users\\Public\\HandHistory.txt";
     PrintWriter pw = null;
     //creating a scanner object
     Scanner input = new Scanner(System.in);
+    //format for date
+    String dateTimeNow = "yyyy.MM.dd hh:mm:ss";
+    SimpleDateFormat sdf = new SimpleDateFormat(dateTimeNow);
+    //calendar
+    Calendar cal = Calendar.getInstance();
+    //date using calendar
+    Date date = cal.getTime();    
 
     //constructor will initialize the player and dealer fields
-    public BlackJackGame() {
+    public BlackJackGame(int numDecks) {
         player = new Player("Ali", 15000);
         dealer = new Dealer("Dealer");
         shoe = new Shoe();
         //may need  to ask for number of decks here.  for now setting it up as 2
-        shoe.shoeInit(2);
+        shoe.shoeInit(numDecks);
        
         try {        
             FileWriter fw = new FileWriter(fileName, true);
             pw = new PrintWriter(fw, true);
+            pw.println("***************************" + " " + sdf.format(date));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(BlackJackGame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

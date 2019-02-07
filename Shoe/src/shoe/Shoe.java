@@ -21,7 +21,6 @@ public class Shoe {
     //creating init method to initialize card
     public void init(int numberOfDecks){
         this.numberOfDecks = numberOfDecks;
-        this.finalPosition = (numberOfDecks * 52) - 52;
         while(numberOfDecks >0){
             for(Card.Suit myCard : Card.Suit.values()){
                 for(int i =2; i<15; i++){
@@ -47,7 +46,8 @@ public class Shoe {
         while(cutCard>=0){
            myShoeCard.add(myShoeCard.remove(0));
            cutCard--;
-        }      
+        } 
+        this.finalPosition = (numberOfDecks * 52) - 52;       
     }
     
     public Card drawCard(){
