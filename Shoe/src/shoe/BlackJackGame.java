@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -26,17 +25,17 @@ public class BlackJackGame {
     private Shoe shoe;
     private int gameNumber = 0;
     //private boolean dealerHit;
-    String fileName = "C:\\Users\\Public\\HandHistory.txt";
-    PrintWriter pw = null;
+    private String fileName = "C:\\Users\\Public\\HandHistory.txt";
+    private PrintWriter pw = null;
     //creating a scanner object
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
     //format for date
-    String dateTimeNow = "yyyy.MM.dd hh:mm:ss";
-    SimpleDateFormat sdf = new SimpleDateFormat(dateTimeNow);
+    private String dateTimeNow = "yyyy.MM.dd hh:mm:ss";
+    private SimpleDateFormat sdf = new SimpleDateFormat(dateTimeNow);
     //calendar
-    Calendar cal = Calendar.getInstance();
+    private Calendar cal = Calendar.getInstance();
     //date using calendar
-    Date date = cal.getTime();    
+    private Date date = cal.getTime();    
 
     //constructor will initialize the player and dealer fields
     public BlackJackGame(int numDecks) {
