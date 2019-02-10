@@ -10,75 +10,76 @@ import java.security.SecureRandom;
  * @author Ali
  */
 public class Shoe {
-    public List <Card> myShoeCard;
+
+    public List<Card> myShoeCard;
     private int numberOfDecks;
-    private int finalPosition;
-    
-    public Shoe(){        
-        myShoeCard = new ArrayList<>();    
-    };
-    
+    private int cutCardPosition;
+
+    public Shoe() {
+        myShoeCard = new ArrayList<>();
+    }
+
     //creating init method to initialize card
-    public void init(int numberOfDecks){
+    public void init(int numberOfDecks) {
         this.numberOfDecks = numberOfDecks;
-        while(numberOfDecks >0){
-            for(Card.Suit myCard : Card.Suit.values()){
-                for(int i =2; i<15; i++){
+        while (numberOfDecks > 0) {
+            for (Card.Suit myCard : Card.Suit.values()) {
+                for (int i = 2; i < 15; i++) {
                     Card shoeCard = new Card(myCard, i);
                     myShoeCard.add(shoeCard);
                 }
             }
-            numberOfDecks--;            
+            numberOfDecks--;
         }
     }
-    
-    public void shuffleShoeCard(){
+
+    public void shuffleShoeCard() {
         Collections.shuffle(myShoeCard);
     }
-    
-    public void cutShoe(){
+
+    public void cutShoe() {
         SecureRandom randomCut = new SecureRandom();
-        int cutCard = 51 + randomCut.nextInt((numberOfDecks-1) *52);
-        
+        cutCardPosition = 51 + randomCut.nextInt((numberOfDecks - 1) * 52);
+
         //this println may change
-        System.out.println("The cut card is at index: " + cutCard);
+        System.out.println("The cut card is at index: " + cutCardPosition);
+
+        while (cutCardPosition >= 0) {
+            myShoeCard.add(myShoeCard.remove(0));
+            cutCardPosition--;
+        }
         
-        while(cutCard>=0){
-           myShoeCard.add(myShoeCard.remove(0));
-           cutCard--;
-        } 
-        this.finalPosition = (numberOfDecks * 52) - 52;       
+        cutCardPosition = (numberOfDecks * 52) - 52;
     }
-    
-    public Card drawCard(){
+
+    public Card drawCard() {
         return myShoeCard.remove(0);
     }
-    
-    public Card seeDrawCard(){
+
+    public Card seeDrawCard() {
         return myShoeCard.get(0);
     }
-    
-    public int shoeCardSize(){
+
+    public int shoeCardSize() {
         return myShoeCard.size();
     }
-    
-    public int getFinalPosition(){
-         return finalPosition;
+
+    public int getCutCardPosition() {
+        return cutCardPosition;
     }
-    
-    public boolean isCutCardBeenPulled(){
-        return (myShoeCard.size()<52);
+
+    public boolean hasCutCardBeenPulled() {
+        return (myShoeCard.size() < cutCardPosition);
     }
-    public void shoeInit(int numberOfDecks){
+
+    public void shoeInit(int numberOfDecks) {
         init(numberOfDecks);
         shuffleShoeCard();
         cutShoe();
-    }    
-    
-        
-    @Override
-    public String toString(){
-        return String.format("%d %d", shoeCardSize(), getFinalPosition());
     }
-    
+
+    @Override
+    public String toString() {
+        return String.format("%d %d", shoeCardSize(), getCutCardPosition());
+    }
 }

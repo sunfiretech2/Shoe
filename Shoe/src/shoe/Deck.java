@@ -23,6 +23,7 @@ public class Deck {
      * initializes myCards as ArrayList
      */    
     public Deck() {
+        
         myCards = new ArrayList<>();        
     }
     

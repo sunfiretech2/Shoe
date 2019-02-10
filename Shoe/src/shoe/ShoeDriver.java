@@ -14,11 +14,16 @@ public class ShoeDriver {
         System.out.print("Enter number of decks in shoe:  ");
         int numDecks = input.nextInt();
        
-        //creating instance of blackjack game
+        // Create an instance of blackjack game
         BlackJackGame game = new BlackJackGame(numDecks);         
         
-        while(true){
-            game.playGame();                
-        }   
+        boolean exitGame = false;
+        
+        // Continue to play unti the end of the shoe
+        while(!exitGame){
+            exitGame = game.playGame();                
+        }
+        
+        System.out.println("End of shoe, Thanks for playing!");
     }
 }

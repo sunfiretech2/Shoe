@@ -10,28 +10,26 @@ package shoe;
  * @author Wife
  */
 public class Dealer extends GameParticipant {
-    public Dealer(String name){
+
+    public Dealer(String name) {
         super(name);
     }
-    
-    public void showHoleCard(){
-    System.out.print(getName() +"\t\t["+ hand.getHoleCard()+"]");
-}
-    
-    public boolean dealerAlgo(Shoe shoe){
+
+    public void showHoleCard() {
+        System.out.print(getName() + "\t\t[" + hand.getHoleCard() + "]");
+    }
+
+    public boolean dealerAlgo(Shoe shoe) {
         boolean dealerHit = false;
-        while(getTotal()<17){
+        while (getTotal() < 17) {
             drawCard(shoe.drawCard());
             dealerHit = true;
         }
         return dealerHit;
-        
-            
     }
-   
+
     @Override
-    public String toString(){
-        return String.format("%s\t\t%s",getName(), getHand());
+    public String toString() {
+        return String.format("%s\t\t%s", getName(), getHand());
     }
-    
 }

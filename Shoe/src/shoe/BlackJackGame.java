@@ -39,7 +39,7 @@ public class BlackJackGame {
 
     //constructor will initialize the player and dealer fields
     public BlackJackGame(int numDecks) {
-        player = new Player("Ali", 15000);
+        player = new Player("Player", 15000);
         dealer = new Dealer("Dealer");
         shoe = new Shoe();
         //may need  to ask for number of decks here.  for now setting it up as 2
@@ -54,7 +54,6 @@ public class BlackJackGame {
         } catch (IOException ex) {
             Logger.getLogger(BlackJackGame.class.getName()).log(Level.SEVERE, null, ex);
         }     
-        
     }
 
     //enum result of hand   
@@ -74,32 +73,30 @@ public class BlackJackGame {
     //if blackjack then will skip game Option
     public boolean gameEvalBlackJack() {
         boolean gameFlag = false;
+        
         if (player.hand.isBlackjack()) {
             gameFlag = true;
             System.out.println("Player has blackjack");
+            
             if (dealer.hand.isBlackjack()) {
-                System.out.println("dealer also has blackjack");
-            } else {
-                System.out.println("Dealer DOES NOT have blackjack");
+                System.out.println("Dealer has blackjack");
             }
-        } else if (dealer.hand.isBlackjack()) {
-            gameFlag = true;
-            System.out.println("only dealer has blackjack");
         } else {
-            System.out.println("no blackjack");
+            if (dealer.hand.isBlackjack()) {
+                gameFlag = true;
+                System.out.println("Dealer has blackjack");
+            }
         }
+        
         return gameFlag;
     }
 
     public void gameOption() {
-
-        // ALI 01/14/2019
-        // Let's talk about this label OUTER.
         boolean playerStand = false;
         while (!player.hand.isBusted() && !playerStand) {
             System.out.print("Hit (H) / Stand (S) / Double Down (D)\t");
             String playerSelection = input.next().toUpperCase();
-            System.out.println("\n");
+            System.out.println();
             switch (playerSelection) {
                 case "H":
                     player.drawCard(shoe.drawCard());
@@ -121,33 +118,43 @@ public class BlackJackGame {
         System.out.println(shoe.shoeCardSize());
     }
     
-    
-    public void playGame(){
-        ++gameNumber;
-        System.out.println("Game number: " + gameNumber);
-        gameDealCards();
-        gamePrintDealCardsHole();
+    public boolean playGame() {
+        boolean endOfShoe = true;
+        if (!shoe.hasCutCardBeenPulled()) {
+            ++gameNumber;
+            System.out.println("Game number: " + gameNumber);
+            gameDealCards();
+            gamePrintDealCardsHole();
 
-        //verifies if player or dealer has blackjack
-        boolean gameFlagBlackJack = gameEvalBlackJack();
-        boolean dealerHit = false;
-        //if neither has a blackjack
-        if (!gameFlagBlackJack) {
-            gameOption();
-            gamePrintDealCardsFinal();
+            //verifies if player or dealer has blackjack
+            boolean gameFlagBlackJack = gameEvalBlackJack();
+            boolean dealerHit = false;
+            //if neither has a blackjack
+            if (!gameFlagBlackJack) {
+                gameOption();
+                gamePrintDealCardsFinal();
 
-            //if player did not bust
-            if (!player.hand.isBusted()) {
-                dealerHit = dealer.dealerAlgo(shoe);
+                //if player did not bust
+                if (!player.hand.isBusted()) {
+                    dealerHit = dealer.dealerAlgo(shoe);
+                }
             }
+            if (dealerHit || gameFlagBlackJack) {
+                gamePrintDealCardsFinal();
+            }
+            Result r = gameEvalWinner();
+            System.out.println("Player: " + r);
+            System.out.println("------------");
+            System.out.println();
+            
+            gamePrintToFile();
+            clear();
+            //shoeCardSize();
+
+            endOfShoe = false;
         }
-        if(dealerHit || gameFlagBlackJack){
-            gamePrintDealCardsFinal();
-        }        
-        gameEvalWinner(); 
-        gamePrintToFile();
-        clear();
-        shoeCardSize();        
+
+        return endOfShoe;
     }
     
     public void gamePrintToFile(){
@@ -162,7 +169,7 @@ public class BlackJackGame {
         System.out.println(player.toString());
         //prints dealer hole card
         dealer.showHoleCard();
-        System.out.println("\n");
+        System.out.println();
     }
 
     public void gamePrintDealCardsFinal() {
@@ -170,7 +177,7 @@ public class BlackJackGame {
         System.out.println(player.toString());
         //prints dealer hole card
         System.out.println(dealer.toString());
-        System.out.println("\n");
+        System.out.println();
     }
     
     public void clear() {
@@ -195,7 +202,7 @@ public class BlackJackGame {
                 r = Result.LOSE;
             }
         }
-        System.out.println(r);
+        
         return r;
     }
 
