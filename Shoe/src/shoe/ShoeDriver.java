@@ -24,6 +24,7 @@ public class ShoeDriver {
             exitGame = game.playGame();                
         }
         
+        System.out.println(game.getStats());
         System.out.println("End of shoe, Thanks for playing!");
     }
 }

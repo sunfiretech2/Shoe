@@ -35,7 +35,10 @@ public class BlackJackGame {
     //calendar
     private Calendar cal = Calendar.getInstance();
     //date using calendar
-    private Date date = cal.getTime();    
+    private Date date = cal.getTime();
+    
+    // Game statistics
+    private Stats stats = new Stats();
 
     //constructor will initialize the player and dealer fields
     public BlackJackGame(int numDecks) {
@@ -147,9 +150,14 @@ public class BlackJackGame {
             System.out.println("------------");
             System.out.println();
             
+            // Log game played to history.
             gamePrintToFile();
+            
+            // Log game played to statistics.
+            stats.add(r, player.hand.isBlackjack(), dealer.hand.isBlackjack());
+            
+            // Clear last played game.
             clear();
-            //shoeCardSize();
 
             endOfShoe = false;
         }
@@ -204,6 +212,10 @@ public class BlackJackGame {
         }
         
         return r;
+    }
+    
+    public String getStats() {
+        return stats.toString();
     }
 
     //may want to put a to string for win/loss and amount
