@@ -17,6 +17,18 @@ public class Player extends GameParticipant{
         super(name, balance);
         numberOfPlayers++;
     }
+    public boolean playerAlgo(Shoe shoe) {
+        boolean playerHit = false;
+        while (getTotal() < 17) {
+            drawCard(shoe.drawCard());
+            playerHit = true;
+        }
+        return playerHit;
+    }
+    
+    public String autoPlayPrint(){
+        return String.format("%s  %s",getName(), getHand());
+    }
     
     @Override
     public String toString(){

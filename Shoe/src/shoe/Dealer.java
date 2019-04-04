@@ -27,6 +27,10 @@ public class Dealer extends GameParticipant {
         }
         return dealerHit;
     }
+    
+    public String autoPlayPrint(){
+        return String.format("%s  %s", getName(), getHand());
+    }
 
     @Override
     public String toString() {

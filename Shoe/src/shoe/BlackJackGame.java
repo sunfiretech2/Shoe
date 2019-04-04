@@ -39,14 +39,16 @@ public class BlackJackGame {
     
     // Game statistics
     private Stats stats = new Stats();
+    private boolean autoPlay = false;
 
     //constructor will initialize the player and dealer fields
-    public BlackJackGame(int numDecks) {
+    public BlackJackGame(int numDecks, boolean autoPlay) {
         player = new Player("Player", 15000);
         dealer = new Dealer("Dealer");
         shoe = new Shoe();
         //may need  to ask for number of decks here.  for now setting it up as 2
         shoe.shoeInit(numDecks);
+        this.autoPlay = autoPlay;
        
         try {        
             FileWriter fw = new FileWriter(fileName, true);
@@ -57,6 +59,15 @@ public class BlackJackGame {
         } catch (IOException ex) {
             Logger.getLogger(BlackJackGame.class.getName()).log(Level.SEVERE, null, ex);
         }     
+    }
+    
+    public void autoPlayGame(int numDecks){
+        autoPlay =true;
+        Calendar autoCal= Calendar.getInstance();
+        date = autoCal.getTime();
+        shoe = new Shoe();
+        shoe.shoeInit(numDecks);
+        pw.println("***************************" + " " + sdf.format(date));
     }
 
     //enum result of hand   
@@ -132,9 +143,16 @@ public class BlackJackGame {
             //verifies if player or dealer has blackjack
             boolean gameFlagBlackJack = gameEvalBlackJack();
             boolean dealerHit = false;
+            boolean playerHit = false;
             //if neither has a blackjack
             if (!gameFlagBlackJack) {
-                gameOption();
+                if(autoPlay){
+                    playerHit = player.playerAlgo(shoe);
+                }
+                else{
+                    gameOption();
+                }
+                //gameOption();
                 gamePrintDealCardsFinal();
 
                 //if player did not bust
@@ -151,7 +169,14 @@ public class BlackJackGame {
             System.out.println();
             
             // Log game played to history.
-            gamePrintToFile();
+            if(autoPlay){
+                autoGamePrintToFile();
+            }
+            else{
+                gamePrintToFile();
+            }
+           
+           
             
             // Log game played to statistics.
             stats.add(r, player.hand.isBlackjack(), dealer.hand.isBlackjack());
@@ -163,6 +188,11 @@ public class BlackJackGame {
         }
 
         return endOfShoe;
+    }
+    
+    public void autoGamePrintToFile(){      
+        pw.printf("Game Number: %4d %s%n", gameNumber, player.autoPlayPrint());
+        pw.println("                  "  + dealer.autoPlayPrint());
     }
     
     public void gamePrintToFile(){
