@@ -3,7 +3,8 @@ package shoe;
 
 /**
  *
- * @author Wife
+ * @author Claude
+ * @author Ali
  */
 
 public class Player extends GameParticipant{
@@ -26,14 +27,28 @@ public class Player extends GameParticipant{
         return playerHit;
     }
     
-    public String autoPlayPrint(){
-        return String.format("%s  %s",getName(), getHand());
+    //second algo
+    public boolean playerAlgoBasic(int rankDealerHoleCard, Shoe shoe) {
+        boolean playerHit = false;
+        if(rankDealerHoleCard < 7){
+            while (getTotal() < 12 || (getTotal() < 18 && hand.isSoft())) {
+                drawCard(shoe.drawCard());
+                playerHit = true;
+            }
+        }
+        else{
+            while (getTotal() < 17) {
+                drawCard(shoe.drawCard());
+                playerHit = true;
+            }
+        }
+        return playerHit;
     }
-    
+        
     @Override
     public String toString(){
-        return String.format("Name:\tWager:\tCards%n%s\t%d\t%s", super.getName(),super.getBalance(),super.getHand());
-    }
-    
+        //return String.format("Name:\tWager:\tCards%n%s\t%d\t%s", super.getName(),super.getBalance(),super.getHand());
+        return String.format("%s  %s",getName(), getHand());
+    }   
 
 }

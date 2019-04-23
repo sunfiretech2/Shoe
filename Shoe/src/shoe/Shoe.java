@@ -15,6 +15,7 @@ public class Shoe {
     private int numberOfDecks;
     private int cutCardPosition;
     private int counterOfCardsPulled;
+    private int hiLowCounter;
 
     public Shoe() {
         myShoeCard = new ArrayList<>();
@@ -41,23 +42,18 @@ public class Shoe {
     public void cutShoe() {
         SecureRandom randomCut = new SecureRandom();        
         cutCardPosition = 51 + randomCut.nextInt((numberOfDecks - 1) * 52);
-
-        //this println may change
-        //System.out.println("The cut card is at index: " + cutCardPosition);
-
+        
         while (cutCardPosition >= 0) {
             myShoeCard.add(myShoeCard.remove(0));
             cutCardPosition--;
         }
         
         cutCardPosition = (numberOfDecks * 52) - 52;
-        //System.out.println(counterOfCardsPulled);
-        //System.out.println("the cut card is at index: " + cutCardPosition);
     }
 
-    public Card drawCard() {
-        //return myShoeCard.remove(0);
+    public Card drawCard() {        
         counterOfCardsPulled++;
+        cardCounter();
         return myShoeCard.remove(0);
     }
 
@@ -81,6 +77,14 @@ public class Shoe {
         init(numberOfDecks);
         shuffleShoeCard();
         cutShoe();
+    }
+    
+    public void cardCounter(){
+        int cardCounterValue = myShoeCard.get(0).getRank();
+        if(cardCounterValue<7)
+            hiLowCounter++;
+        else if(cardCounterValue>9)        
+            hiLowCounter--;
     }
 
     @Override

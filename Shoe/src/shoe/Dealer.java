@@ -16,7 +16,12 @@ public class Dealer extends GameParticipant {
     }
 
     public void showHoleCard() {
-        System.out.print(getName() + "\t\t[" + hand.getHoleCard() + "]");
+       // System.out.print(getName() + "\t\t[" + hand.getHoleCard() + "]");     delete after review
+        System.out.print(getName() + "\t[" + hand.getHoleCard() + "]");
+    }
+    
+    public int getHoleCardRank(){
+        return hand.getHoleCard().getRank();
     }
 
     public boolean dealerAlgo(Shoe shoe) {
@@ -28,12 +33,10 @@ public class Dealer extends GameParticipant {
         return dealerHit;
     }
     
-    public String autoPlayPrint(){
-        return String.format("%s  %s", getName(), getHand());
-    }
 
     @Override
     public String toString() {
-        return String.format("%s\t\t%s", getName(), getHand());
+        //return String.format("%s\t\t%s", getName(), getHand());
+        return String.format("%s  %s", getName(), getHand());
     }
 }

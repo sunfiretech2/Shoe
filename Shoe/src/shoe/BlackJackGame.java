@@ -51,7 +51,7 @@ public class BlackJackGame {
         this.autoPlay = autoPlay;
        
         try {        
-            FileWriter fw = new FileWriter(fileName, true);
+            FileWriter fw = new FileWriter(fileName, false);
             pw = new PrintWriter(fw, true);
             pw.println("***************************" + " " + sdf.format(date));
         } catch (FileNotFoundException ex) {
@@ -117,7 +117,6 @@ public class BlackJackGame {
                     gamePrintDealCardsHole();
                     break;
                 case "S":
-                    //System.out.println(player.getTotal());
                     playerStand = true;
                     break;
                 default:
@@ -139,7 +138,9 @@ public class BlackJackGame {
             System.out.println("Game number: " + gameNumber);
             gameDealCards();
             gamePrintDealCardsHole();
-
+            
+            int dealerHoleCardValue = dealer.getHoleCardRank();
+            
             //verifies if player or dealer has blackjack
             boolean gameFlagBlackJack = gameEvalBlackJack();
             boolean dealerHit = false;
@@ -147,7 +148,7 @@ public class BlackJackGame {
             //if neither has a blackjack
             if (!gameFlagBlackJack) {
                 if(autoPlay){
-                    playerHit = player.playerAlgo(shoe);
+                    playerHit = player.playerAlgoBasic(dealerHoleCardValue, shoe);
                 }
                 else{
                     gameOption();
@@ -169,14 +170,7 @@ public class BlackJackGame {
             System.out.println();
             
             // Log game played to history.
-            if(autoPlay){
-                autoGamePrintToFile();
-            }
-            else{
-                gamePrintToFile();
-            }
-           
-           
+            printToFile();
             
             // Log game played to statistics.
             stats.add(r, player.hand.isBlackjack(), dealer.hand.isBlackjack());
@@ -190,17 +184,10 @@ public class BlackJackGame {
         return endOfShoe;
     }
     
-    public void autoGamePrintToFile(){      
-        pw.printf("Game Number: %4d %s%n", gameNumber, player.autoPlayPrint());
-        pw.println("                  "  + dealer.autoPlayPrint());
+    public void printToFile(){
+        pw.printf("Game Number: %4d %s%n", gameNumber, player.toString());
+        pw.println("                  "  + dealer.toString());        
     }
-    
-    public void gamePrintToFile(){
-        pw.println("Game Number: " + gameNumber);
-        pw.println(player.toString());
-        pw.println(dealer.toString());
-        pw.println();
-    }    
 
     public void gamePrintDealCardsHole() {
         //prints out the players cards
