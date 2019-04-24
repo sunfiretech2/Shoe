@@ -108,9 +108,18 @@ public class BlackJackGame {
     public void gameOption() {
         boolean playerStand = false;
         while (!player.hand.isBusted() && !playerStand) {
-            System.out.print("Hit (H) / Stand (S) / Double Down (D)\t");
+            System.out.print("Hit (H) / Stand (S)");
+            if (player.hand.canDoubleDown()) {
+                System.out.print(" / Double Down (D)");
+            }
+            if (player.hand.canSplit()) {
+                System.out.print(" / Split (P)");
+            }
+            System.out.print(":\t");
+            
             String playerSelection = input.next().toUpperCase();
             System.out.println();
+            
             switch (playerSelection) {
                 case "H":
                     player.drawCard(shoe.drawCard());
@@ -119,6 +128,19 @@ public class BlackJackGame {
                 case "S":
                     playerStand = true;
                     break;
+                case "D":
+                    if (!player.hand.hasHit()) {
+                        player.doubleDown(shoe.drawCard());
+                        playerStand = true;
+                    } else {
+                        System.out.println("Invalid input");
+                        gamePrintDealCardsHole();
+                    }
+                    break;
+                case "P":
+                    System.out.println("Invalid input");
+                    gamePrintDealCardsHole();
+                    break;                
                 default:
                     System.out.println("Invalid input");
                     gamePrintDealCardsHole();

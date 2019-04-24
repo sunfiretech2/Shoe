@@ -44,6 +44,10 @@ public class Player extends GameParticipant{
         }
         return playerHit;
     }
+    
+    public void doubleDown(Card c) {
+        hand.doubleDown(c);
+    }
         
     @Override
     public String toString(){
