@@ -1,6 +1,8 @@
 
 package shoe;
 
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author Claude
@@ -47,6 +49,23 @@ public class Player extends GameParticipant{
     
     public void doubleDown(Card c) {
         hand.doubleDown(c);
+    }
+    
+    public void split() {
+        Card c = hand.removeLastCard();
+                
+        Hand h = new Hand();
+        h.drawCard(c);
+        
+        hands.add(h);
+    }
+    
+ public int handsSize() {
+        return hands.size();
+    }
+ 
+  public void setHand(int idx) {
+        hand = hands.get(idx);
     }
         
     @Override

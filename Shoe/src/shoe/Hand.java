@@ -28,6 +28,11 @@ public class Hand {
         isDouble = true;
         drawCard(dealt);
     }
+    
+    public Card removeLastCard() {
+        Card c = cardValue.remove(1);
+        return c;
+    }
 
     public int getTotal() {
         return total;

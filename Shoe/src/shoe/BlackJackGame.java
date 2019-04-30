@@ -37,6 +37,8 @@ public class BlackJackGame {
     //date using calendar
     private Date date = cal.getTime();
     
+    private int index = 0;
+    
     // Game statistics
     private Stats stats = new Stats();
     private boolean autoPlay = false;
@@ -62,7 +64,7 @@ public class BlackJackGame {
     }
     
     public void autoPlayGame(int numDecks){
-        autoPlay =true;
+        autoPlay = true;
         Calendar autoCal= Calendar.getInstance();
         date = autoCal.getTime();
         shoe = new Shoe();
@@ -106,46 +108,50 @@ public class BlackJackGame {
     }
 
     public void gameOption() {
-        boolean playerStand = false;
-        while (!player.hand.isBusted() && !playerStand) {
-            System.out.print("Hit (H) / Stand (S)");
-            if (player.hand.canDoubleDown()) {
-                System.out.print(" / Double Down (D)");
-            }
-            if (player.hand.canSplit()) {
-                System.out.print(" / Split (P)");
-            }
-            System.out.print(":\t");
-            
-            String playerSelection = input.next().toUpperCase();
-            System.out.println();
-            
-            switch (playerSelection) {
-                case "H":
-                    player.drawCard(shoe.drawCard());
-                    gamePrintDealCardsHole();
-                    break;
-                case "S":
-                    playerStand = true;
-                    break;
-                case "D":
-                    if (!player.hand.hasHit()) {
-                        player.doubleDown(shoe.drawCard());
+        while (index < player.handsSize()) {
+            boolean playerStand = false;
+            while (!player.hand.isBusted() && !playerStand) {
+                System.out.print("Hit (H) / Stand (S)");
+                if (player.hand.canDoubleDown()) {
+                    System.out.print(" / Double Down (D)");
+                }
+                //if (player.hand.canSplit()) {
+                //    System.out.print(" / Split (P)");
+                //}
+                System.out.print(":\t");
+
+                String playerSelection = input.next().toUpperCase();
+                System.out.println();
+
+                switch (playerSelection) {
+                    case "H":
+                        player.drawCard(shoe.drawCard());
+                        gamePrintDealCardsHole();
+                        break;
+                    case "S":
                         playerStand = true;
-                    } else {
+                        break;
+                    case "D":
+                        if (!player.hand.hasHit()) {
+                            player.doubleDown(shoe.drawCard());
+                            playerStand = true;
+                        } else {
+                            System.out.println("Invalid input");
+                            gamePrintDealCardsHole();
+                        }
+                        break;
+                    case "P":
+                        player.split();
+                        player.drawCard(shoe.drawCard());
+                        break;
+                    default:
                         System.out.println("Invalid input");
                         gamePrintDealCardsHole();
-                    }
-                    break;
-                case "P":
-                    System.out.println("Invalid input");
-                    gamePrintDealCardsHole();
-                    break;                
-                default:
-                    System.out.println("Invalid input");
-                    gamePrintDealCardsHole();
-                    break;
+                        break;
+                }
             }
+            ++index;
+            //player.
         }
     }
     
