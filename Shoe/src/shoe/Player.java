@@ -67,11 +67,20 @@ public class Player extends GameParticipant{
   public void setHand(int idx) {
         hand = hands.get(idx);
     }
+  
+  public boolean isBusted() {
+      for (int i = 0; i < handsSize(); ++i) {
+          if (!hands.get(i).isBusted()) {
+              return false;
+          }
+      }
+      return true;
+    }
         
     @Override
     public String toString(){
         //return String.format("Name:\tWager:\tCards%n%s\t%d\t%s", super.getName(),super.getBalance(),super.getHand());
-        return String.format("%s  %s",getName(), getHand());
+        return String.format("%s  %s",getName(), getHands());
     }   
 
 }

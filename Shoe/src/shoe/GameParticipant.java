@@ -44,13 +44,19 @@ public class GameParticipant {
     public String getHand() {
         return hand.toString();
     }
+    
+    public String getHands() {
+        return hands.toString();
+    }
 
     public int getTotal() {
         return hand.getTotal();
     }
 
     public void clear() {
-        hand.clear();
+        hands.clear();
+        hand = new Hand();
+        hands.add(hand);
     }
 
     public String getName() {

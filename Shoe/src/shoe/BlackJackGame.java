@@ -108,8 +108,8 @@ public class BlackJackGame {
     }
 
     public void gameOption() {
+        boolean playerStand = false;
         while (index < player.handsSize()) {
-            boolean playerStand = false;
             while (!player.hand.isBusted() && !playerStand) {
                 System.out.print("Hit (H) / Stand (S)");
                 if (player.hand.canDoubleDown()) {
@@ -143,6 +143,7 @@ public class BlackJackGame {
                     case "P":
                         player.split();
                         player.drawCard(shoe.drawCard());
+                        gamePrintDealCardsHole();
                         break;
                     default:
                         System.out.println("Invalid input");
@@ -151,6 +152,13 @@ public class BlackJackGame {
                 }
             }
             ++index;
+            if (index < player.handsSize()) {
+                playerStand = false;
+                player.setHand(index);
+                
+                player.drawCard(shoe.drawCard());
+                gamePrintDealCardsHole();
+            }
             //player.
         }
     }
@@ -185,15 +193,22 @@ public class BlackJackGame {
                 gamePrintDealCardsFinal();
 
                 //if player did not bust
-                if (!player.hand.isBusted()) {
+                if (!player.isBusted()) {
                     dealerHit = dealer.dealerAlgo(shoe);
                 }
             }
             if (dealerHit || gameFlagBlackJack) {
                 gamePrintDealCardsFinal();
             }
-            Result r = gameEvalWinner();
-            System.out.println("Player: " + r);
+            
+            Result r = Result.LOSE;
+            for (int i = 0; i < player.handsSize(); ++i) {
+                player.setHand(i);
+                r = gameEvalWinner();
+
+                System.out.println("Player: " + r);
+            }
+            
             System.out.println("------------");
             System.out.println();
             
@@ -236,10 +251,10 @@ public class BlackJackGame {
     public void clear() {
         player.clear();
         dealer.clear();
+        index = 0;
     }
         
     public Result gameEvalWinner(){
-            
         Result r;
 
         if (player.hand.isBusted()) {
